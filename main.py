@@ -1,6 +1,19 @@
 from nlp import transcribeVideo
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    if request.method == 'GET':
+        return render_template('index.html')
+    else:
+        transcript = ""
+        data = request.form
+        link = data['link']
+        title = data['title']
+        transcript = transcribeVideo(link, title)
+        return render_template('index.html', transcript=transcript)
 
 if __name__ == "__main__":
-    link = input("Enter the link of the YouTube video: ")
-    title = input("What do you want to name the file? ")
-    transcribeVideo(link, title)
+    app.run('0.0.0.0', 3000, debug=True)

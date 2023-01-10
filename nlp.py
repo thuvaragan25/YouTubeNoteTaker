@@ -22,3 +22,4 @@ def transcribeVideo(link, title):
     with open(f"{title}.json", "w") as f:
         json.dump(data, f)
     os.remove(file_name)
+    return transcribed

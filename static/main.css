@@ -1,0 +1,23 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+body {
+    display: flex;
+    flex-direction: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+
+div {
+    padding: 20px;
+}
+
+.result {
+    width: 50vw;
+    height: 50vh;
+}
