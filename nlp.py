@@ -2,6 +2,16 @@ from pytube import YouTube
 import os
 import json
 import whisper
+import requests
+
+API_TOKEN = "" #Get your own token from: https://huggingface.co/docs/hub/security-tokens
+API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+headers = {"Authorization": f"Bearer {API_TOKEN}"}
+
+def query(text):
+	response = requests.post(API_URL, headers=headers, json=text)
+	return response.json()
+	
 
 model = whisper.load_model("base")
 
@@ -22,4 +32,13 @@ def transcribeVideo(link, title):
     with open(f"{title}.json", "w") as f:
         json.dump(data, f)
     os.remove(file_name)
+    print("Transcribed")
     return transcribed
+
+def summarize(text):
+    summarized_text = query({
+	    "inputs": text,
+    })[0]["summary_text"]
+    print("Summarized")
+    return summarized_text
+

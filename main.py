@@ -1,4 +1,4 @@
-from nlp import transcribeVideo
+from nlp import transcribeVideo, summarize
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -13,7 +13,8 @@ def home():
         link = data['link']
         title = data['title']
         transcript = transcribeVideo(link, title)
-        return render_template('index.html', transcript=transcript)
+        summary = summarize(transcript)
+        return render_template('index.html', transcript=transcript, summary=summary)
 
 if __name__ == "__main__":
     app.run('0.0.0.0', 3000, debug=True)
